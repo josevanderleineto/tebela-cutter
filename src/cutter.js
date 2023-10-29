@@ -33,7 +33,7 @@ function selecionaCutter(nome, lista, i) {
 
 // Lê o arquivo CSV e processa a entrada do usuário
 async function processaCutter() {
-  const arquivo = './src/Ncutter.csv';
+  const arquivo = './src/cutter.csv';
   const arquivoStream = fs.createReadStream(arquivo);
   const rl = readline.createInterface({
     input: arquivoStream,
