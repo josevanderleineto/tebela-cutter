@@ -5,7 +5,7 @@
 Re
 
 ## Referêcias
-<a href="https://www.tabelacutter.com/">Tabela Cutter</a>
+<a href="https://www.tabelacutter.com/">Tabela Cutter</a><br>
 <a href="https://github.com/bcunhasa/gerador-cutter">Repositorio que clonei para para fazer a versao em js</a>
 
 
