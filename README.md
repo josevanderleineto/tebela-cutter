@@ -25,7 +25,7 @@ A combinação da Tabela Cutter com o gerador de código em JavaScript represent
 
 
 ## Referêcias
-<a href="https://www.tabelacutter.com/">Tabela Cutter</a><br>
+<a href="https://academico.ufrrj.br/biblioteca/cutter/cutter8.html">Tabela Cutter</a><br>
 <a href="https://github.com/bcunhasa/gerador-cutter">Repositorio que clonei para para fazer a versao em js</a>
 
 
