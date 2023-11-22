@@ -1,0 +1,9 @@
+# Arquivos temporários
+*.log
+*.swp
+*.tmp
+
+node_modules/
+dist/
+build/
+ajuste.txt
