@@ -48,7 +48,7 @@ function processaCutter() {
       const cutter = selecionaCutter(nome, lista, 0);
       const primeiraLetra = nome[0].toUpperCase();
       const codigoComLetra = primeiraLetra + cutter + tituloInput[0].toLowerCase();
-      document.getElementById('resultado').innerText = 'Seu Código Cutter:' + codigoComLetra;
+      document.getElementById('resultado').innerText = 'Seu Código Cutter : ' + codigoComLetra;
     })
     .catch(error => console.error('Erro ao processar o arquivo CSV:', error));
 }
