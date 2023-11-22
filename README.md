@@ -1,4 +1,4 @@
-# tebela-cutter
+# Gerador de Código de Notação de Autor com Tabela Cutter utilizando JavaScript
 A Notação de Autor é uma parte essencial na catalogação e organização de bibliotecas e acervos. Uma ferramenta fundamental para isso é a Tabela Cutter, um sistema que permite criar códigos únicos para autores, facilitando a busca e localização de obras. Neste contexto, desenvolvi um gerador de Código de Notação de Autor utilizando JavaScript, que incorpora a lógica da Tabela Cutter.
 
 O que é a Tabela Cutter:
