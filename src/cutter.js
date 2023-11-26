@@ -2,7 +2,7 @@ function removeAcentuacao(texto) {
   return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
-function selecionaCutter(nome, lista, i) {
+function selecionaPha(nome, lista, i) {
   const novaLista = [];
 
   for (const tupla of lista) {
@@ -20,14 +20,14 @@ function selecionaCutter(nome, lista, i) {
   }
 
   if (novaLista.length > 0) {
-    return selecionaCutter(nome, novaLista, i + 1);
+    return selecionaPha(nome, novaLista, i + 1);
   } else {
     return lista[0][1];
   }
 }
 
-function processaCutter() {
-  const arquivo = '/src/cutter.csv';
+function processaPha() {
+  const arquivo = '/src/pha.csv';
   fetch(arquivo)
     .then(response => response.text())
     .then(textoCSV => {
@@ -45,14 +45,14 @@ function processaCutter() {
       const nomeInput = document.getElementById('nome').value;
       const tituloInput = document.getElementById('titulo').value;
       const nome = removeAcentuacao(nomeInput).toLowerCase();
-      const cutter = selecionaCutter(nome, lista, 0);
+      const cutter = selecionaPha(nome, lista, 0);
       const primeiraLetra = nome[0].toUpperCase();
       const codigoComLetra = primeiraLetra + cutter + tituloInput[0].toLowerCase();
-      document.getElementById('resultado').innerText = 'Seu Código Cutter : ' + codigoComLetra;
+      document.getElementById('resultado').innerText = 'Seu Código Cutter : '+ codigoComLetra;
     })
     .catch(error => console.error('Erro ao processar o arquivo CSV:', error));
 }
 
-function calcularCutter() {
-  processaCutter();
+function calcularPha() {
+  processaPha();
 }
