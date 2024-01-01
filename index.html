@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabela Cutter</title>
+    <link rel="stylesheet" href="/src/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link fs-1 text-dark" href="/index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fs-1 text-dark" href="/src/sobre.html">Sobre</a>
+            </li>
+          </ul>
+    </header>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2 class="mb-4 text-center">Tabela PHA</h2>
+            <h1 class="mb-4 text-center">Tabela Cutter</h1>
             <form class="shadow-lg p-3 mb-5 bg-white rounded">
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome:</label>
@@ -32,7 +43,9 @@
     </div>
 </div>
 
-<!-- Inclua o Bootstrap JS (opcional) -->
+<footer class="text-center">
+    <p> &copy; By Vanderlei Neto</p>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/src/cutter.js"></script>
 </body>
