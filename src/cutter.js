@@ -1,58 +1,42 @@
+// Função para remover acentuação
 function removeAcentuacao(texto) {
-  return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+// Função para selecionar o código Cutter
 function selecionaCutter(nome, lista, i) {
-  const novaLista = [];
-
-  for (const tupla of lista) {
-    if (i >= nome.length) {
-      return lista[0][1];
-    }
-
-    if (i >= tupla[0].length) {
-      continue;
-    }
-
-    if (nome[i] === tupla[0][i]) {
-      novaLista.push(tupla);
-    }
-  }
-
-  if (novaLista.length > 0) {
-    return selecionaCutter(nome, novaLista, i + 1);
-  } else {
-    return lista[0][1];
-  }
+  const novaLista = lista.filter(tupla => i < nome.length && i < tupla[0].length && nome[i] === tupla[0][i]);
+  return novaLista.length > 0 ? selecionaCutter(nome, novaLista, i + 1) : lista[0][1];
 }
 
-function processaCutter() {
-  const arquivo = 'src/cutter.csv'; // Caminho relativo corrigido
-  fetch(arquivo)
-    .then(response => response.text())
-    .then(textoCSV => {
-      const linhas = textoCSV.split('\n');
-      const dicionario = new Map();
+// Função principal para calcular o código Cutter
+async function calcularCutter() {
+  const sobrenome = document.getElementById("nome").value.trim();
+  const titulo = document.getElementById("titulo").value.trim();
+  const resultado = document.getElementById("resultado");
 
-      for (const linha of linhas) {
-        const [texto, codigo] = linha.split(',');
-        dicionario.set(removeAcentuacao(texto).toLowerCase(), codigo);
-      }
+  if (!sobrenome) {
+    resultado.innerHTML = "<span style='color: red;'>Por favor, insira o sobrenome.</span>";
+    return;
+  }
 
-      const lista = Array.from(dicionario.entries());
-      lista.sort((a, b) => a[0].localeCompare(b[0]));
+  try {
+    const response = await fetch("https://notacao-de-autor-api.vercel.app/api/data");
+    const data = await response.json();
+    
+    // Formatar dados da API
+    const cutterData = data.map(entry => [removeAcentuacao(entry.texto).toLowerCase(), entry.codigo]);
+    cutterData.sort((a, b) => a[0].localeCompare(b[0]));
 
-      const nomeInput = document.getElementById('nome').value;
-      const tituloInput = document.getElementById('titulo').value;
-      const nome = removeAcentuacao(nomeInput).toLowerCase();
-      const cutter = selecionaCutter(nome, lista, 0);
-      const primeiraLetra = nome[0].toUpperCase();
-      const codigoComLetra = primeiraLetra + cutter + tituloInput[0].toLowerCase();
-      document.getElementById('resultado').innerText = 'Seu Código Cutter: ' + codigoComLetra;
-    })
-    .catch(error => console.error('Erro ao processar o arquivo CSV:', error));
-}
+    const normalizedLastName = removeAcentuacao(sobrenome).toLowerCase();
+    const cutterCode = selecionaCutter(normalizedLastName, cutterData, 0);
+    const firstLetter = sobrenome[0].toUpperCase();
+    const titleInitial = titulo ? titulo[0].toLowerCase() : "";
 
-function calcularCutter() {
-  processaCutter();
+    const finalCode = `${firstLetter}${cutterCode}${titleInitial}`;
+    resultado.innerHTML = `<strong>Seu Código Cutter:</strong> <span style="color: green;">${finalCode}</span>`;
+  } catch (error) {
+    console.error("Erro ao buscar dados da API:", error);
+    resultado.innerHTML = "<span style='color: red;'>Erro ao buscar dados. Tente novamente mais tarde.</span>";
+  }
 }
