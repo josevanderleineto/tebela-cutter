@@ -3,6 +3,16 @@ function removeAcentuacao(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+// Função para verificar e remover artigos
+function removerArtigo(titulo) {
+  const artigos = ["o", "a", "os", "as", "um", "uma", "uns", "umas", "de", "do", "da", "dos", "das", "no", "na", "nos", "nas"];
+  const palavras = titulo.split(" ");
+  if (palavras.length > 1 && artigos.includes(palavras[0].toLowerCase())) {
+    palavras.shift(); // Remove a primeira palavra se for um artigo
+  }
+  return palavras.join(" ");
+}
+
 // Função para selecionar o código Cutter
 function selecionaCutter(nome, lista, i) {
   const novaLista = lista.filter(tupla => i < nome.length && i < tupla[0].length && nome[i] === tupla[0][i]);
@@ -12,13 +22,16 @@ function selecionaCutter(nome, lista, i) {
 // Função principal para calcular o código Cutter
 async function calcularCutter() {
   const sobrenome = document.getElementById("nome").value.trim();
-  const titulo = document.getElementById("titulo").value.trim();
+  let titulo = document.getElementById("titulo").value.trim();
   const resultado = document.getElementById("resultado");
 
   if (!sobrenome) {
     resultado.innerHTML = "<span style='color: red;'>Por favor, insira o sobrenome.</span>";
     return;
   }
+
+  // Remover artigo do título, se existir
+  titulo = removerArtigo(titulo);
 
   try {
     const response = await fetch("https://notacao-de-autor-api.vercel.app/api/data");
